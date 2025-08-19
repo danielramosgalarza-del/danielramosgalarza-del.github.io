@@ -13,8 +13,15 @@
             padding: 0;
             color: #1e2a3c;
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            background-size: cover;
+            background-size: 200% 200%;
             min-height: 100vh;
+            animation: gradient-animation 15s ease infinite;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* --- Glassmorphism Effect --- */
@@ -25,6 +32,12 @@
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
         }
 
         /* --- Header y Navegación --- */
@@ -39,6 +52,12 @@
             font-size: 3rem;
             margin: 0;
             font-weight: 300;
+            animation: fadeIn 2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         nav {
@@ -55,6 +74,7 @@
             font-weight: 500;
             position: relative;
             transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         nav a::after {
@@ -127,13 +147,14 @@
             }
         }
 
-        /* --- Botón --- */
-        #show-more-btn {
-            display: block;
+        /* --- Enlace Estilizado --- */
+        .btn-link {
+            display: inline-block;
             margin: 2rem auto 1rem;
             padding: 1rem 2rem;
             background: linear-gradient(45deg, #1cb5e0, #000046);
             color: white;
+            text-decoration: none;
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -142,7 +163,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        #show-more-btn:hover {
+        .btn-link:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
@@ -188,13 +209,14 @@
         <a href="#tipos-contaminacion">Tipos</a>
         <a href="#consecuencias">Consecuencias</a>
         <a href="#soluciones">Soluciones</a>
+        <a href="datos.html">Estadísticas</a>
     </nav>
 
     <main>
         <section id="introduccion" class="section glass-container">
             <h2>Introducción</h2>
             <p>Guayaquil, la vibrante y poblada ciudad de Ecuador, enfrenta serios desafíos ambientales debido a su rápido crecimiento demográfico e industrial. La contaminación en sus diversas formas afecta la calidad de vida de sus habitantes y la salud de sus ecosistemas. Este sitio web busca informar sobre las principales causas y efectos de este problema, así como proponer posibles soluciones para un futuro más sostenible.</p>
-            <p>La ubicación geográfica de la ciudad, a orillas del río Guayas y el Golfo de Guayaquil, la hace particularmente vulnerable a la contaminación del agua, pero los problemas también se extienden al aire y al suelo, impactando a toda la región.</p>
+            <p>Se estima que solo el 20% de las aguas residuales de la ciudad son tratadas antes de ser vertidas al río Guayas, lo que lo convierte en uno de los principales focos de contaminación hídrica en la región.  La ubicación geográfica de la ciudad, a orillas del río Guayas y el Golfo de Guayaquil, la hace particularmente vulnerable a la contaminación del agua, pero los problemas también se extienden al aire y al suelo, impactando a toda la región.</p>
         </section>
 
         <section id="tipos-contaminacion" class="section glass-container">
@@ -216,12 +238,18 @@
             </div>
 
             <div class="problem-card">
-                <img src="https://imagenes.primicias.ec/files/og_thumbnail/uploads/2024/07/22/669ecbf5af19a.jpeg
-
-" alt="Manejo de residuos sólidos en Guayaquil" class="glass-container">
+                <img src="https://imagenes.primicias.ec/files/og_thumbnail/uploads/2024/07/22/669ecbf5af19a.jpeg" alt="Manejo de residuos sólidos en Guayaquil" class="glass-container">
                 <div class="text-content">
                     <h3>3. Manejo de Residuos Sólidos</h3>
                     <p>A pesar de los esfuerzos, el manejo de la basura sigue siendo un problema. La acumulación de residuos en las calles y vertederos, sumada a la falta de programas de reciclaje efectivos, contribuye a la contaminación del suelo y atrae plagas, afectando la higiene y el paisaje urbano.</p>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <img src="https://static.wixstatic.com/media/0111f1_6b4a8e259e8749a2a91217e99709d435~mv2.jpg/v1/fit/w_500,h_500,q_90/0111f1_6b4a8e259e8749a2a91217e99709d435~mv2.jpg" alt="Contaminación visual en Guayaquil" class="glass-container">
+                <div class="text-content">
+                    <h3>4. Contaminación Visual</h3>
+                    <p>El exceso de carteles publicitarios, grafitis no regulados y una infraestructura urbana desordenada generan un impacto negativo en el paisaje, afectando el bienestar psicológico y el sentido de identidad de la comunidad. Las fachadas con cables y anuncios indiscriminados restan atractivo a los espacios públicos.</p>
                 </div>
             </div>
         </section>
@@ -230,10 +258,10 @@
             <h2>Consecuencias y Efectos</h2>
             <p>La contaminación tiene un impacto directo en múltiples aspectos de la vida en Guayaquil:</p>
             <ul>
-                <li><strong>Salud Pública:</strong> Aumento de enfermedades respiratorias, gastrointestinales y de la piel.</li>
-                <li><strong>Ecosistemas:</strong> Pérdida de biodiversidad en los ríos y estuarios, afectando a especies como los manglares y los peces.</li>
-                <li><strong>Economía:</strong> Impacto en la pesca y el turismo, así como costos de salud pública.</li>
-                <li><strong>Calidad de Vida:</strong> Deterioro del paisaje urbano y reducción del bienestar general.</li>
+                <li><strong>Salud Pública:</strong> Aumento de enfermedades respiratorias, gastrointestinales y de la piel. Según estudios locales, los casos de asma y bronquitis se han incrementado en áreas cercanas a fuentes de alta contaminación del aire.</li>
+                <li><strong>Ecosistemas:</strong> Pérdida de biodiversidad en los ríos y estuarios, afectando a especies como los manglares y los peces. La degradación del Estero Salado es un claro ejemplo de la pérdida de hábitats naturales y la desaparición de especies.</li>
+                <li><strong>Economía:</strong> Impacto en la pesca y el turismo, así como costos de salud pública. La inversión en infraestructura de tratamiento de agua y aire es costosa, y el turismo ecológico se ve afectado por la mala calidad ambiental.</li>
+                <li><strong>Calidad de Vida:</strong> Deterioro del paisaje urbano y reducción del bienestar general. Los malos olores y la presencia de basura en las calles disminuyen la calidad de vida de los ciudadanos.</li>
             </ul>
         </section>
 
@@ -247,15 +275,13 @@
                 <li><strong>Regulación Ambiental:</strong> Fortalecer las leyes y los controles para las empresas contaminantes.</li>
                 <li><strong>Educación Ambiental:</strong> Concienciar a la población sobre la importancia de sus hábitos diarios.</li>
             </ul>
-            <button id="show-more-btn">Ver más sobre cómo ayudar</button>
-            <div id="additional-info" style="display: none; margin-top: 1rem;">
+            <a href="datos.html" class="btn-link">Ver Datos y Estadísticas Clave</a>
+            <div id="additional-info">
                 <p>Cada pequeño gesto cuenta. Reduce tu consumo, reutiliza, recicla y participa en campañas de limpieza de tu comunidad. Juntos podemos hacer de Guayaquil una ciudad más limpia y saludable.</p>
                 <div class="gallery">
                     <img src="https://guayaquil.gob.ec/wp-content/uploads/2025/04/EN-GUA1.jpg" alt="Imagen de limpieza comunitaria">
                     <img src="https://www.elcomercio.com/wp-content/uploads/2022/03/siembraton-4-1.jpg" alt="Imagen de plantación de árboles">
-                    <img src="https://www.pica.com.ec/static/uploads/news/11_32.jpg
-
-" alt="Imagen de reciclaje de plástico">
+                    <img src="https://www.pica.com.ec/static/uploads/news/11_32.jpg" alt="Imagen de reciclaje de plástico">
                 </div>
             </div>
         </section>
@@ -264,19 +290,6 @@
     <footer>
         <p>&copy; 2025 Información sobre la Contaminación en Guayaquil. Todos los derechos reservados.</p>
     </footer>
-
-    <script>
-        document.getElementById('show-more-btn').addEventListener('click', function() {
-            var additionalInfo = document.getElementById('additional-info');
-            if (additionalInfo.style.display === 'none') {
-                additionalInfo.style.display = 'block';
-                this.textContent = 'Ocultar información';
-            } else {
-                additionalInfo.style.display = 'none';
-                this.textContent = 'Ver más sobre cómo ayudar';
-            }
-        });
-    </script>
 
 </body>
 </html>
