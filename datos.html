@@ -5,229 +5,187 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datos y Estadísticas - Contaminación en Guayaquil</title>
     <style>
-        /* Copia y pega todo el código CSS del archivo index.html aquí */
-        /* --- Estilos Generales y Gradientes --- */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --white: #FFFFFF;
+            --light-blue: #ADD8E6; /* Celeste claro */
+            --medium-blue: #87CEEB; /* Celeste medio */
+            --dark-blue: #4682B4; /* Azul acero */
+            --darker-blue: #1E90FF; /* Azul brillante */
+            --shadow-1: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --shadow-2: 0 8px 16px rgba(0, 0, 0, 0.3);
+            --shadow-3: 0 12px 24px rgba(0, 0, 0, 0.4);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            color: #1e2a3c;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            background-size: 200% 200%;
-            min-height: 100vh;
-            animation: gradient-animation 15s ease infinite;
+            background-color: var(--white);
+            color: var(--dark-blue);
+            line-height: 1.8;
+            overflow-x: hidden;
         }
 
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Efecto de capas sutil */
+        .floating-element {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            box-shadow: var(--shadow-1);
+            border-radius: 8px;
+            background-color: var(--white);
         }
 
-        /* --- Glassmorphism Effect --- */
-        .glass-container {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .glass-container:hover {
+        .floating-element:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+            box-shadow: var(--shadow-2);
         }
 
-        /* --- Header y Navegación --- */
+        /* Header y Navegación */
         header {
             text-align: center;
-            padding: 2rem 1rem;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 4rem 1rem 2rem;
+            background-color: var(--light-blue);
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--medium-blue);
         }
 
         header h1 {
-            font-size: 3rem;
-            margin: 0;
-            font-weight: 300;
-            animation: fadeIn 2s ease;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--darker-blue);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        header p {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            color: var(--dark-blue);
+            font-weight: 300;
         }
 
         nav {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
         nav a {
-            display: inline-block;
-            padding: 0.7rem 1.5rem;
-            margin: 0 0.5rem;
-            color: white;
+            color: var(--dark-blue);
             text-decoration: none;
             font-weight: 500;
-            position: relative;
-            transition: all 0.3s ease;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            padding: 0.7rem 1.5rem;
+            margin: 0 0.8rem;
+            border-radius: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--medium-blue);
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 0;
-            height: 2px;
-            background-color: white;
-            transition: width 0.3s ease, left 0.3s ease;
+        nav a:hover {
+            background-color: var(--medium-blue);
+            color: var(--white);
+            box-shadow: var(--shadow-1);
         }
 
-        nav a:hover::after {
-            width: 100%;
-            left: 0;
-        }
-
-        /* --- Contenido Principal --- */
+        /* Contenido Principal */
         main {
-            padding: 2rem;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: auto;
+            padding: 2rem;
         }
 
         .section {
+            background-color: var(--white);
             padding: 2.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-1);
+            border: 1px solid var(--light-blue);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .section.fade-in {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section h2 {
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            font-size: 2rem;
-            font-weight: 300;
-            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 600;
+            color: var(--darker-blue);
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid var(--medium-blue);
+            padding-bottom: 0.5rem;
         }
         
-        .section p, .section ul {
-            color: #e0e0e0;
-        }
-
-        .problem-card {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .problem-card img {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-        }
-
-        .problem-card .text-content {
-            padding: 1.5rem;
-            flex: 1;
-        }
-
-        @media (min-width: 768px) {
-            .problem-card {
-                flex-wrap: nowrap;
-            }
-            .problem-card img {
-                width: 40%;
-                margin-right: 2rem;
-            }
-        }
-
-        /* --- Enlace Estilizado --- */
-        .btn-link {
-            display: inline-block;
-            margin: 2rem auto 1rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(45deg, #1cb5e0, #000046);
-            color: white;
-            text-decoration: none;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .btn-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* --- Galería --- */
-        .gallery {
+        .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            gap: 2rem;
             margin-top: 2rem;
         }
-
-        .gallery img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.05);
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            color: #b0c4de;
-            font-size: 0.9rem;
-            margin-top: 2rem;
-        }
-
-        .stats-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
+        
         .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            padding: 1.5rem;
-            margin: 1rem;
-            border-radius: 12px;
+            background-color: var(--light-blue);
+            padding: 2rem;
+            border-radius: 8px;
             text-align: center;
-            flex: 1;
-            min-width: 250px;
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-2);
         }
 
         .stat-card h3 {
-            color: white;
-            font-size: 1.5rem;
+            color: var(--dark-blue);
+            font-size: 1.4rem;
             margin-bottom: 0.5rem;
         }
 
         .stat-card p {
             font-size: 2.5rem;
-            font-weight: bold;
-            color: #1cb5e0;
+            font-weight: 700;
+            color: var(--darker-blue);
             margin: 0;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card .description {
+            font-size: 1rem;
+            color: var(--dark-blue);
+            margin-top: 1rem;
+        }
+
+        .btn-link {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--medium-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            box-shadow: var(--shadow-1);
+            margin-top: 1rem;
+        }
+
+        .btn-link:hover {
+            background-color: var(--darker-blue);
+            box-shadow: var(--shadow-2);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--medium-blue);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--light-blue);
+            margin-top: 3rem;
         }
     </style>
 </head>
@@ -238,76 +196,117 @@
         <p>Una mirada a los números detrás del problema de la contaminación en Guayaquil</p>
     </header>
 
-    <nav class="glass-container">
+    <nav>
         <a href="index.html">Volver a la Página Principal</a>
-        <a href="#agua">Agua</a>
-        <a href="#aire">Aire</a>
-        <a href="#residuos">Residuos</a>
     </nav>
 
     <main>
-        <section id="agua" class="section glass-container">
+        <section id="agua" class="section floating-element">
             <h2>Contaminación del Agua</h2>
-            <p>La calidad del agua en el río Guayas y el Estero Salado es una preocupación ambiental crítica.</p>
+            <p>La calidad del agua en el río Guayas y el Estero Salado es una preocupación ambiental crítica que afecta a millones de personas.</p>
             <div class="stats-container">
-                <div class="stat-card">
-                    <h3>Aguas residuales tratadas</h3>
-                    <p>~20%</p>
-                    <p>Se estima que solo un 20% de las aguas residuales domésticas e industriales son tratadas antes de ser liberadas.</p>
+                <div class="stat-card floating-element">
+                    <h3>Volumen de Aguas Residuales</h3>
+                    <p>~1,500 m³</p>
+                    <p class="description">Por segundo se vierten al río Guayas, de los cuales solo un pequeño porcentaje es tratado.</p>
                 </div>
-                <div class="stat-card">
-                    <h3>Niveles de contaminación</h3>
-                    <p>Alto</p>
-                    <p>Se han detectado altos niveles de coliformes fecales y metales pesados en puntos específicos del río.</p>
+                <div class="stat-card floating-element">
+                    <h3>Coliformes Fecales</h3>
+                    <p>Muy altos</p>
+                    <p class="description">Los niveles de coliformes fecales en el Estero Salado superan los límites de seguridad, lo que indica una alta contaminación por aguas residuales.</p>
+                </div>
+                <div class="stat-card floating-element">
+                    <h3>Basura Flotante</h3>
+                    <p>Miles de toneladas</p>
+                    <p class="description">Se calcula que miles de toneladas de plásticos y otros desechos flotan en el río y el Estero, afectando la biodiversidad y la estética de la ciudad.</p>
                 </div>
             </div>
-            <p style="margin-top: 2rem;">La falta de infraestructura de saneamiento adecuada es un factor principal en la degradación de los ecosistemas acuáticos de la ciudad. </p>
         </section>
 
-        <section id="aire" class="section glass-container">
+        <section id="aire" class="section floating-element">
             <h2>Calidad del Aire</h2>
-            <p>Aunque menos visible, la contaminación atmosférica afecta diariamente la salud de los guayaquileños.</p>
+            <p>Aunque menos visible, la contaminación atmosférica afecta diariamente la salud de los guayaquileños y el medio ambiente.</p>
             <div class="stats-container">
-                <div class="stat-card">
+                <div class="stat-card floating-element">
                     <h3>Emisiones vehiculares</h3>
                     <p>~60%</p>
-                    <p>Se calcula que más del 60% de la contaminación del aire proviene del parque automotor, especialmente de vehículos antiguos.</p>
+                    <p class="description">Se calcula que más del 60% de la contaminación del aire en la ciudad proviene del parque automotor, especialmente de vehículos antiguos y con poco mantenimiento.</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card floating-element">
+                    <h3>Días de Calidad Aceptable</h3>
+                    <p>Menos de 200</p>
+                    <p class="description">El número de días al año en los que la calidad del aire es considerada "buena" o "aceptable" en ciertas zonas de la ciudad es limitado.</p>
+                </div>
+                <div class="stat-card floating-element">
                     <h3>Partículas PM2.5</h3>
                     <p>Preocupante</p>
-                    <p>Las mediciones de partículas finas (PM2.5) en áreas de alto tráfico a menudo superan los límites recomendados por la OMS.</p>
+                    <p class="description">Las mediciones de partículas finas (PM2.5) en áreas de alto tráfico a menudo superan los límites recomendados por la Organización Mundial de la Salud (OMS).</p>
                 </div>
             </div>
-            <p style="margin-top: 2rem;">La congestión vehicular y la quema de desechos contribuyen significativamente a la mala calidad del aire en la ciudad.  </p>
         </section>
 
-        <section id="residuos" class="section glass-container">
+        <section id="ruido" class="section floating-element">
+            <h2>Contaminación por Ruido</h2>
+            <p>Un problema silencioso pero perjudicial que afecta el bienestar de los habitantes y la vida silvestre.</p>
+            <div class="stats-container">
+                <div class="stat-card floating-element">
+                    <h3>Niveles de Ruido Promedio</h3>
+                    <p>~75 dB</p>
+                    <p class="description">El nivel de ruido en zonas de alto tráfico de Guayaquil a menudo supera los 70 dB, un umbral que la OMS considera perjudicial para la salud.</p>
+                </div>
+                <div class="stat-card floating-element">
+                    <h3>Fuentes Principales</h3>
+                    <p>Tráfico, Obras</p>
+                    <p class="description">El 80% de la contaminación acústica proviene del tráfico vehicular, seguido de cerca por la construcción y actividades comerciales.</p>
+                </div>
+                <div class="stat-card floating-element">
+                    <h3>Impacto en la Salud</h3>
+                    <p>Estrés, Insomnio</p>
+                    <p class="description">La exposición prolongada a altos niveles de ruido puede causar estrés crónico, insomnio y problemas cardiovasculares en la población.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="residuos" class="section floating-element">
             <h2>Gestión de Residuos</h2>
             <p>El manejo inadecuado de los residuos sólidos es una de las causas más notorias de contaminación en las calles y espacios públicos.</p>
             <div class="stats-container">
-                <div class="stat-card">
+                <div class="stat-card floating-element">
+                    <h3>Residuos per cápita</h3>
+                    <p>~1 kg / día</p>
+                    <p class="description">Cada habitante de Guayaquil genera un promedio de 1 kg de basura al día, lo que representa un gran desafío para su gestión.</p>
+                </div>
+                <div class="stat-card floating-element">
                     <h3>Reciclaje</h3>
                     <p>~4%</p>
-                    <p>Se estima que solo un 4% de los residuos generados en Guayaquil se recicla formalmente.</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Basura en ríos</h3>
-                    <p>Toneladas</p>
-                    <p>Miles de toneladas de plásticos y otros desechos terminan anualmente en el río Guayas y el Estero Salado.</p>
+                    <p class="description">Se estima que solo un 4% de los residuos generados se recicla formalmente, dejando una gran oportunidad para mejorar los programas de recolección selectiva.</p>
                 </div>
             </div>
-            <p style="margin-top: 2rem;">Fomentar la cultura de la separación de residuos y el reciclaje es fundamental para mitigar este problema.</p>
         </section>
-
-        <section class="section">
-            <a href="index.html" class="btn-link">Volver a la página principal</a>
-        </section>
+        
+        <a href="index.html" class="btn-link">Volver a la página principal</a>
     </main>
 
     <footer>
         <p>&copy; 2025 Información sobre la Contaminación en Guayaquil. Todos los derechos reservados.</p>
     </footer>
 
+    <script>
+        const sections = document.querySelectorAll('.section');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
